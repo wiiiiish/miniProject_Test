@@ -28,11 +28,12 @@ public class Main {
 				boolean idpn = false;
 				String user_ID = null;
 				while (!idpn) {
+					System.out.println("al의 크기 : " + al.size());
 					System.out.print("사용할 ID : ");
 					user_ID = sc.next();
 					if (al.size() != 0) {
 						for (User_VO vo : al) {
-							if (user_ID == vo.getID()) {
+							if (user_ID.equals(vo.getID())) {
 								System.out.println("이미 사용 중인 아이디입니다.");
 								idpn = false;
 								break; //for문 빠져나옴
@@ -54,7 +55,7 @@ public class Main {
 					user_NAME = sc.next();
 					if (al.size() != 0) {
 						for (User_VO vo : al) {
-							if (user_ID == vo.getNAME()) {
+							if (user_ID.equals(vo.getNAME())) {
 								System.out.println("이미 사용 중인 이름입니다.");
 								namepn = false;
 								break; //for문 빠져나옴
@@ -72,8 +73,53 @@ public class Main {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
 			} // end of if (menu == 1)
+			else if (menu == 2) {
+				System.out.println(menu + "번 선택");
+				System.out.println("==========로그인창==========");
+				ArrayList<User_VO> al = userDAO.selectUser();
 
-		}
+				String user_ID = null;
+				String user_PW = null;
+				
+				boolean pn = true;
+				int cnt = 0;
+				int log = 0;
+				while (pn) {
+					System.out.print("ID : ");
+					user_ID = sc.next();
+					System.out.print("PW : ");
+					user_PW = sc.next();
+					for (User_VO vo : al) {
+						if (user_ID.equals(vo.getID())) {
+							if (user_PW.equals(vo.getPW())) {
+								System.out.println("로그인 성공");
+								pn = false;
+								break;
+							} else {
+								cnt ++;
+								System.out.println("비밀번호가 올바르지 않습니다.");
+								break;
+							}
+						}else {
+								cnt++;
+						}
+						if (cnt >= al.size()) {
+							System.out.println("존재하지 않는 회원입니다.");
+							break;
+						}
+					} // end of for
+					log++;
+					if (log > 4) {
+						System.out.println("회원가입을 진행해주세요.");
+						pn = false;
+					}
+				} // end of while
+
+				// 게임 화면 구축하기
+
+			} // end of else if (menu == 2)
+
+		} // end of while
 
 	}
 
