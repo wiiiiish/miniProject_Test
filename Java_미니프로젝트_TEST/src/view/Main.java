@@ -72,6 +72,9 @@ public class Main {
 				if (check) {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
+				
+				// 캐릭터 추가 하기 //
+				
 			} // end of if (menu == 1)
 			else if (menu == 2) {
 				System.out.println(menu + "번 선택");
