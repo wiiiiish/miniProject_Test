@@ -115,7 +115,7 @@ public class Main {
 					}
 				} // end of while
 
-				// 게임 화면 구축하기
+				// 게임 화면 구축하기 //
 
 			} // end of else if (menu == 2)
 
