@@ -55,7 +55,7 @@ public class Main {
 					user_NAME = sc.next();
 					if (al.size() != 0) {
 						for (User_VO vo : al) {
-							if (user_ID.equals(vo.getNAME())) {
+							if (user_NAME.equals(vo.getNAME())) {
 								System.out.println("이미 사용 중인 이름입니다.");
 								namepn = false;
 								break; //for문 빠져나옴
