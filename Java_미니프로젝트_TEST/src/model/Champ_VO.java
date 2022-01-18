@@ -1,6 +1,6 @@
 package model;
 
-public class Chap_VO {
+public class Champ_VO {
 
 	private String user_ID;
 	private String poketmon;
