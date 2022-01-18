@@ -92,8 +92,10 @@ public class User_DAO {
 			e.printStackTrace();
 		} finally {
 			close();
+			System.out.println("Ä¿¹Ô¾ØÇª½¬ Å×½ºÆ®ÁßÀÔ´Ï´Ù.");
 		}
 		return al;
+		
 	} // end of select
 
 }
