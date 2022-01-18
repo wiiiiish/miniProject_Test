@@ -28,5 +28,7 @@ public class Champ_VO {
 	public void move() {
 		System.out.println("출전하다");
 	}
+	
+	//혹시나 노래 넣을꺼면 여기에 play메소드 추가하기
 
 }
