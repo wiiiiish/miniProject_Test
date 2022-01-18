@@ -36,7 +36,7 @@ public class Main {
 							if (user_ID.equals(vo.getID())) {
 								System.out.println("이미 사용 중인 아이디입니다.");
 								idpn = false;
-								break; //for문 빠져나옴
+								break; // for문 빠져나옴
 							} else {
 								idpn = true;
 							}
@@ -58,7 +58,7 @@ public class Main {
 							if (user_NAME.equals(vo.getNAME())) {
 								System.out.println("이미 사용 중인 이름입니다.");
 								namepn = false;
-								break; //for문 빠져나옴
+								break; // for문 빠져나옴
 							} else {
 								namepn = true;
 							}
@@ -72,9 +72,16 @@ public class Main {
 				if (check) {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
-				
-				// 캐릭터 추가 하기 //
-				
+
+				String poketmon = null; // 채원.새로 추가한 부분
+				System.out.println("사용할 포켓몬 3마리를 선택헤주세요");
+				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이스");
+
+				for (int i = 1; i <= 3; i++) {
+					System.out.print("데려갈 포켓몬 : ");
+					poketmon = sc.next();
+				}
+
 			} // end of if (menu == 1)
 			else if (menu == 2) {
 				System.out.println(menu + "번 선택");
@@ -83,7 +90,7 @@ public class Main {
 
 				String user_ID = null;
 				String user_PW = null;
-				
+
 				boolean pn = true;
 				int cnt = 0;
 				int log = 0;
@@ -99,12 +106,12 @@ public class Main {
 								pn = false;
 								break;
 							} else {
-								cnt ++;
+								cnt++;
 								System.out.println("비밀번호가 올바르지 않습니다.");
 								break;
 							}
-						}else {
-								cnt++;
+						} else {
+							cnt++;
 						}
 						if (cnt >= al.size()) {
 							System.out.println("존재하지 않는 회원입니다.");
@@ -123,8 +130,8 @@ public class Main {
 			} // end of else if (menu == 2)
 
 		} // end of while
-		// 테스트중입니다.
-		// 왜안되지.ㅇ\ㅇㅇ
+			// 테스트중입니다.
+			// 왜안되지.ㅇ\ㅇㅇ
 	}
 
 }
