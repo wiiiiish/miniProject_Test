@@ -136,7 +136,7 @@ public class Main {
 			} // end of else if (menu == 2)
 
 		} // end of while
-		// 테스트한번더해보겠습니다.
+		// 테스트한번더해보겠습니다.jjj
 	}
 
 }
