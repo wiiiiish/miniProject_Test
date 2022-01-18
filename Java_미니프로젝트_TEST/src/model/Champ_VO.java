@@ -6,7 +6,7 @@ public class Champ_VO {
 	private String poketmon;
 	private int poketPower;
 
-	public void poketmon (String user_ID, String poketmon, int poketPower) {
+	public Champ_VO (String user_ID, String poketmon, int poketPower) {
 		
 		this.user_ID=user_ID;
 		this.poketmon=poketmon;

@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import model.Champ_DAO;
 import model.User_DAO;
 import model.User_VO;
 
@@ -12,6 +13,7 @@ public class Main {
 
 		User_DAO userDAO = new User_DAO();
 		Scanner sc = new Scanner(System.in);
+		Champ_DAO champDAO = new Champ_DAO();
 
 		int menu = 0;
 
@@ -73,13 +75,16 @@ public class Main {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
 
-				String poketmon = null; // 채원.새로 추가한 부분
-				System.out.println("사용할 포켓몬 3마리를 선택헤주세요");
-				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이스");
-
-				for (int i = 1; i <= 3; i++) {
+				String poketmon = null;
+				System.out.println("사용할 포켓몬 3마리를 선택해주세요.");
+				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이시");
+				for (int i=1; i<=3; i++) {
 					System.out.print("데려갈 포켓몬 : ");
 					poketmon = sc.next();
+					boolean checkchamp = champDAO.insertChamp(user_ID, poketmon);
+					if(checkchamp) {
+						System.out.println("포켓몬 구단 생성이 완료되었습니다.");
+					}
 				}
 
 			} // end of if (menu == 1)
@@ -130,8 +135,8 @@ public class Main {
 			} // end of else if (menu == 2)
 
 		} // end of while
-			// 테스트중입니다.
-			// 왜안되지.ㅇ\ㅇㅇ
+		// 테스트중입니다.
+		// 왜안되지.ㅇ\ㅇㅇ
 	}
 
 }
