@@ -181,7 +181,7 @@ public class Main {
 			} // end of else if (menu == 2)
 
 		} // end of while
-			//  테스트합니다...
+			//  테스트합니다......
 	}
 
 }
