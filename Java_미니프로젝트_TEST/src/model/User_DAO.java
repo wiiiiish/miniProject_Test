@@ -16,9 +16,9 @@ public class User_DAO {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			String user = "system";
-			String password = "1234";
+			String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
+			String user = "campus_d_4_0115";
+			String password = "smhrd4";
 
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
@@ -92,7 +92,7 @@ public class User_DAO {
 			e.printStackTrace();
 		} finally {
 			close();
-			System.out.println("Ä¿¹Ô¾ØÇª½¬ Å×½ºÆ®ÁßÀÔ´Ï´Ù.");
+
 		}
 		return al;
 		
