@@ -83,9 +83,10 @@ public class Main {
 					poketmon = sc.next();
 					boolean checkchamp = champDAO.insertChamp(user_ID, poketmon);
 					if(checkchamp) {
-						System.out.println("포켓몬 구단 생성이 완료되었습니다.");
+						System.out.println("포켓몬 포켓볼에 저장 완료");
 					}
 				}
+				System.out.println("포켓몬 구단이 완성되었습니다.");
 
 			} // end of if (menu == 1)
 			else if (menu == 2) {
