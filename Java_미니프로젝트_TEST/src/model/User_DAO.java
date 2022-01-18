@@ -92,6 +92,9 @@ public class User_DAO {
 			e.printStackTrace();
 		} finally {
 			close();
+			
+			System.out.println("테스트중입니다.......12:03");
+			System.out.println("트스트중이지요.... 12:05");
 
 		}
 		return al;
