@@ -75,15 +75,15 @@ public class Main {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
 
-				String poketmon = null;
+				int poketmonNum = 0;
 				System.out.println("사용할 포켓몬 3마리를 선택해주세요.");
 				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이시");
 				for (int i=1; i<=3; i++) {
 					System.out.print("데려갈 포켓몬 : ");
-					poketmon = sc.next();
-					boolean checkchamp = champDAO.insertChamp(user_ID, poketmon);
+					poketmonNum = sc.nextInt();
+					boolean checkchamp = champDAO.insertChamp(user_ID, poketmonNum);
 					if(checkchamp) {
-						System.out.println("포켓몬 포켓볼에 저장 완료");
+						System.out.println(champDAO.Champ(poketmonNum) + "포켓몬 포켓볼에 저장 완료");
 					}
 				}
 				System.out.println("포켓몬 구단이 완성되었습니다.");
