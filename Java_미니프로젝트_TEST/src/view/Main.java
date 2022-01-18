@@ -123,7 +123,8 @@ public class Main {
 			} // end of else if (menu == 2)
 
 		} // end of while
-
+		// 테스트중입니다.
+		// 왜안되지.
 	}
 
 }
