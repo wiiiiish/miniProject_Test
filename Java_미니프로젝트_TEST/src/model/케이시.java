@@ -8,7 +8,7 @@ public class 케이시 extends Champ_VO{
 	}
 
 	public void move() {
-		System.out.println("케이시가 초능력을 뽐내며 출전한다");
+		System.out.println("케이시가 초능력을 뽐낸다.");
 
 	}
 
