@@ -1,9 +1,11 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import model.Champ_DAO;
+import model.Champ_VO;
 import model.User_DAO;
 import model.User_VO;
 
@@ -15,6 +17,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		Champ_DAO champDAO = new Champ_DAO();
 
+		Random rd = new Random();
 		int menu = 0;
 
 		while (true) {
@@ -75,15 +78,16 @@ public class Main {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
 
-				int poketmonNum = 0;
+				int poketNum = 0;
 				System.out.println("사용할 포켓몬 3마리를 선택해주세요.");
 				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이시");
-				for (int i=1; i<=3; i++) {
+				for (int i = 1; i <= 3; i++) {
 					System.out.print("데려갈 포켓몬 : ");
-					poketmonNum = sc.nextInt();
-					boolean checkchamp = champDAO.insertChamp(user_ID, poketmonNum);
-					if(checkchamp) {
-						System.out.println(champDAO.Champ(poketmonNum) + "포켓몬 포켓볼에 저장 완료");
+					poketNum = sc.nextInt();
+					int Num = userDAO.getNum(user_ID);
+					boolean checkchamp = champDAO.insertChamp(Num, user_ID, poketNum - 1);
+					if (checkchamp) {
+						System.out.println(champDAO.Champ(poketNum - 1) + "포켓몬 포켓볼에 저장 완료");
 					}
 				}
 				System.out.println("포켓몬 구단이 완성되었습니다.");
@@ -133,56 +137,77 @@ public class Main {
 
 				// 게임 화면 구축하기 //
 				System.out.println("[1]게임시작 [2]내 포켓몬 확인 [3]랭킹확인 [4]종료");
-				int num1 =sc.nextInt();
+				int gamemenu = sc.nextInt();
 				int score = 0;
 				int out = 0;
-				if(num1 == 1) {
-					while(true) {
+				ArrayList<String> list = champDAO.fiterChamp(user_ID);
+				if (gamemenu == 1) {
 					System.out.println("게임을 시작합니다");
-					// 내포켓몬 선택하기 
-					if(내포켓몬 > 적포켓몬) {
-						if((내포켓몬-적포켓몬)<=50) {
-							System.out.println("안타!");
-							score += 1;
-						}else {
-							System.out.println("홈런!");
-							score += 2;
+					String poketName = null;
+					ArrayList<String> userPoket = null;
+					ArrayList<String> fiterPoket = null;
+
+					while (true) {
+						int fiterNum = rd.nextInt(al.size()) + 1;
+
+						// 내포켓몬 선택하기
+						System.out.println("출전시킬 포켓몬을 골라주세요.");
+						System.out.println("==========보유 포켓몬 목록==========");
+						for (int i = 0; i < list.size(); i++) {
+							System.out.print(list.get(i) + " ");
 						}
-					}else if(내포켓몬 < 적포켓몬) {
-						System.out.println("아웃!");
-						out += 1;
+						System.out.print("포켓몬 선택 : ");
+						poketName = sc.next();
+						
+						System.out.println("두구두구...\n"); 
+						
+						pause(800);
+
+						int userPower = champDAO.poketPower(user_ID, poketName);
+
+						String poket = champDAO.poket(fiterNum);
+						int fiterPower = champDAO.poketPower(fiterNum, poket);
+
+						if (userPower >= fiterPower) {
+							if ((userPower - fiterPower) <= 50) {
+								System.out.println("안타!");
+								score += 1;
+							} else {
+								System.out.println("홈런!");
+								score += 2;
+							}
+						} else if (userPower < fiterPower) {
+							System.out.println("아웃!");
+							out += 1;
+						}
+						if (out == 3) {
+							System.out.println("패배하였습니다");
+							break;
+						}
+						if (score >= 10) {
+							System.out.println("승리하였습니다");
+							break;
+						}
 					}
-					if(out == 3) {
-						System.out.println("패배하였습니다");
-						break;
-					}
-					if(score >= 10) {
-						System.out.println("승리하였습니다");
-						break;
-					}
-					}
-				}else if(num1 == 2) {
-					ArrayList<champ_VO> al= ;
-					//for each문으로 불러올때
-					for(StudentVO vo:al) {
-						System.out.println("==================");
-						System.out.println("ID : " );
-						System.out.println("포켓몬이름 : " );
-						System.out.println("능력 : " );
-						System.out.println("포켓몬번호 : ");
-						System.out.println();
-					
-				}else if(num1 == 3) {
-					
-				}else if(num1 == 4) {
+				} else if (gamemenu == 2) {
+
+				} else if (gamemenu == 3) {
+
+				} else if (gamemenu == 4) {
 					System.out.println("종료");
 					break;
 				}
 			} // end of else if (menu == 2)
 
 		} // end of while
-		// 테스트중입니다.
-		// 왜안되지.ㅇ\ㅇㅇ
+
+	}
+
+	public static void pause(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+		}
 	}
 
 }

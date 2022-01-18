@@ -11,7 +11,7 @@ public class Champ_DAO {
 
 	Connection conn = null;
 	PreparedStatement pst = null;
-	ResultSet rs = null ;
+	ResultSet rs = null;
 
 	public void connect() {
 		try {
@@ -29,36 +29,37 @@ public class Champ_DAO {
 
 	public void close() {
 		try {
-			if(rs!=null) {
+			if (rs != null) {
 				rs.close();
 			}
-			if(pst!=null) {
+			if (pst != null) {
 				pst.close();
 			}
-			if(conn!=null) {
+			if (conn != null) {
 				conn.close();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	} // end of close
 
-	public boolean insertChamp (String user_ID, int poketmonNum) {
+	public boolean insertChamp(int Num, String user_ID, int poketmonNum) {
 		boolean check = false;
 		Random rd = new Random();
 
 		try {
 			connect();
-			String sql = "insert into USER_CHAMP values (?, ?, ?)";
+			String sql = "insert into USER_CHAMP values (?, ?, ?, ?)";
 
 			pst = conn.prepareStatement(sql);
-			pst.setString(1,user_ID);
-			pst.setString(2, Champ(poketmonNum));
-			pst.setInt(3, rd.nextInt(100)+1);
+			pst.setInt(1, Num);
+			pst.setString(2, user_ID);
+			pst.setString(3, Champ(poketmonNum));
+			pst.setInt(4, rd.nextInt(100) + 1);
 
 			int cnt = pst.executeUpdate();
 
-			if(cnt>0) {
+			if (cnt > 0) {
 				check = true;
 			}
 
@@ -75,7 +76,7 @@ public class Champ_DAO {
 		return check;
 	} // end of insert
 
-	public ArrayList<Champ_VO> selectChamp () {
+	public ArrayList<Champ_VO> selectChamp() {
 		ArrayList<Champ_VO> champ = new ArrayList<>();
 
 		try {
@@ -86,11 +87,12 @@ public class Champ_DAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
+				int Num = rs.getInt("NUM");
 				String user_ID = rs.getString("ID");
 				String poketmon = rs.getString("CHAMP");
 				int poketPower = rs.getInt("POWER");
 
-				champ.add(new Champ_VO(user_ID, poketmon, poketPower));
+				champ.add(new Champ_VO(Num, user_ID, poketmon, poketPower));
 			}
 
 		} catch (Exception e) {
@@ -105,9 +107,120 @@ public class Champ_DAO {
 		return champ;
 	}
 
-	public String Champ (int poketmonNum) {
-		String[] poketList = {"피카츄", "파이리", "이상해씨", "꼬부기", "푸린", "나옹", "잠만보", "고라파덕", "모다피", "케이시"};
+	public String Champ(int poketmonNum) {
+		String[] poketList = { "피카츄", "파이리", "이상해씨", "꼬부기", "푸린", "나옹", "잠만보", "고라파덕", "모다피", "케이시" };
 		return poketList[poketmonNum];
+	}
+
+	public ArrayList<String> fiterChamp(String user_ID) {
+
+		ArrayList<String> fiterList = new ArrayList<>();
+		try {
+			connect();
+			String sql = "select CHAMP from USER_CHAMP where ID = ?";
+
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, user_ID);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				String poketmon = rs.getString("CHAMP");
+				fiterList.add(poketmon);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return fiterList;
+	}
+
+	public int poketPower(String user_ID, String poketmon) {
+		int power = 0;
+		try {
+			connect();
+			String sql = "select POWER from USER_CHAMP where ID = ? and CHAMP = ?";
+
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, user_ID);
+			pst.setString(2, poketmon);
+
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				power = rs.getInt("POWER");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return power;
+	}
+
+	public int poketPower(int user_Num, String poketmon) {
+		int power = 0;
+		try {
+			connect();
+			String sql = "select POWER from USER_CHAMP where NUM = ? and CHAMP = ?";
+
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, user_Num);
+			pst.setString(2, poketmon);
+
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				power = rs.getInt("POWER");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return power;
+	}
+
+	public String poket(int user_Num) {
+
+		ArrayList<String> List = new ArrayList<>();
+		Random rd = new Random();
+		try {
+			connect();
+			String sql = "select CHAMP from USER_CHAMP where NUM = ? ";
+
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, user_Num);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				String poketmon = rs.getString("CHAMP");
+				List.add(poketmon);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return List.get(rd.nextInt(List.size()));
+
 	}
 
 } // end of class
