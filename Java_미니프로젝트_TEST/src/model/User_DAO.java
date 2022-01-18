@@ -93,7 +93,6 @@ public class User_DAO {
 		} finally {
 			close();
 
-			System.out.println("4번째 테스트");
 		}
 		return al;
 		
