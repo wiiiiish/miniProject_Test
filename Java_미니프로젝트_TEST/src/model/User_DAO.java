@@ -95,7 +95,8 @@ public class User_DAO {
 			
 			System.out.println("테스트중입니다.......12:03");
 			System.out.println("트스트중이지요.... 12:05");
-			System.out.println("주영씨 컴퓨터로 테스트중입니당.");
+			System.out.println("주영씨 컴퓨터로 테스트중입니당...");
+			System.out.println("주영컴퓨터로 테스트 두번째 합니다..");
 		}
 		return al;
 		
