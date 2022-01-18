@@ -132,7 +132,52 @@ public class Main {
 				} // end of while
 
 				// 게임 화면 구축하기 //
-
+				System.out.println("[1]게임시작 [2]내 포켓몬 확인 [3]랭킹확인 [4]종료");
+				int num1 =sc.nextInt();
+				int score = 0;
+				int out = 0;
+				if(num1 == 1) {
+					while(true) {
+					System.out.println("게임을 시작합니다");
+					// 내포켓몬 선택하기 
+					if(내포켓몬 > 적포켓몬) {
+						if((내포켓몬-적포켓몬)<=50) {
+							System.out.println("안타!");
+							score += 1;
+						}else {
+							System.out.println("홈런!");
+							score += 2;
+						}
+					}else if(내포켓몬 < 적포켓몬) {
+						System.out.println("아웃!");
+						out += 1;
+					}
+					if(out == 3) {
+						System.out.println("패배하였습니다");
+						break;
+					}
+					if(score >= 10) {
+						System.out.println("승리하였습니다");
+						break;
+					}
+					}
+				}else if(num1 == 2) {
+					ArrayList<champ_VO> al= ;
+					//for each문으로 불러올때
+					for(StudentVO vo:al) {
+						System.out.println("==================");
+						System.out.println("ID : " );
+						System.out.println("포켓몬이름 : " );
+						System.out.println("능력 : " );
+						System.out.println("포켓몬번호 : ");
+						System.out.println();
+					
+				}else if(num1 == 3) {
+					
+				}else if(num1 == 4) {
+					System.out.println("종료");
+					break;
+				}
 			} // end of else if (menu == 2)
 
 		} // end of while
