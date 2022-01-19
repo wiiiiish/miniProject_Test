@@ -33,4 +33,8 @@ public class Champ_VO {
 	      return poketPower;
 	   }
 
+	public int getNum() {
+		return Num;
+	}
+
 	}

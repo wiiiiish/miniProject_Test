@@ -132,7 +132,7 @@ public class Record_DAO {
          
          pst = conn.prepareStatement(sql);
          pst.setString(1, user_ID);
-         int cnt = pst.executeUpdate();
+         pst.executeUpdate();
       
       } catch (Exception e) {
          e.printStackTrace();

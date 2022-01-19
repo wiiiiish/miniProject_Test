@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Controller.Controller;
-import javazoom.jl.player.MP3Player;
+//import javazoom.jl.player.MP3Player;
 import model.Champ_DAO;
 import model.Champ_VO;
 import model.Record_DAO;
@@ -20,11 +20,8 @@ public class Main {
 
 		User_DAO userDAO = new User_DAO();
 		Scanner sc = new Scanner(System.in);
-		Champ_VO champVO = new Champ_VO();
 		Champ_DAO champDAO = new Champ_DAO();
-		Record_VO recordVO = new Record_VO();
 		Record_DAO recordDAO = new Record_DAO();
-		MP3Player mp3 = new MP3Player();
 		Controller con = new Controller();
 
 		Random rd = new Random();
@@ -89,7 +86,7 @@ public class Main {
 				if (check) {
 					System.out.println("회원가입이 완료되었습니다.");
 				} // end of if
-				boolean inWinLose = recordDAO.insertWinLose(user_ID);
+				recordDAO.insertWinLose(user_ID);
 
 				System.out.println("사용할 포켓몬 3마리를 선택해주세요.");
 				System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]마자용 [8]고라파덕 [9]토게피 [10]치코리타");
@@ -168,8 +165,6 @@ public class Main {
 					int gamemenu =sc.nextInt(); //게임 시작메뉴
 					int addmenu = 0;  // 승리시 포켓몬 추가할때 메뉴
 					int rankmenu = 0; // 랭크확인 메뉴
-					int wincnt = 0; 
-					int losecnt = 0; 
 					int score = 0;
 					int out = 0;
 					int win = 0;
@@ -178,8 +173,6 @@ public class Main {
 						con.stop();
 						System.out.println("게임을 시작합니다");
 						String poketName = null;
-						ArrayList<String> userPoket = null;
-						ArrayList<String> fiterPoket = null;
 
 						boolean game = true;
 						while(game) {
