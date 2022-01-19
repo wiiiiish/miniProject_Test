@@ -34,8 +34,7 @@ public class Record_VO {
 	   public int getWinCnt() {
 	      return winCnt;
 	   }
-
-
+	   
 	   public int getLoseCnt() {
 	      return loseCnt;
 	   }

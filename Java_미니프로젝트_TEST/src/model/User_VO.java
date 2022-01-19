@@ -24,5 +24,4 @@ public class User_VO {
 	      return user_NAME;
 	   }
 
-
 	} // end of class

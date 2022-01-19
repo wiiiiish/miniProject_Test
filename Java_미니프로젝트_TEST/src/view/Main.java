@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import Controller.Controller;
+import javazoom.jl.player.MP3Player;
 import model.Champ_DAO;
 import model.Champ_VO;
 import model.Record_DAO;
@@ -22,7 +24,8 @@ public class Main {
       Champ_DAO champDAO = new Champ_DAO();
       Record_VO recordVO = new Record_VO();
       Record_DAO recordDAO = new Record_DAO();
-
+      MP3Player mp3 = new MP3Player();
+      Controller con = new Controller();
       
       Random rd = new Random();
       int menu = 0;
@@ -177,11 +180,10 @@ public class Main {
                   }
                   System.out.print("\n포켓몬 선택 : ");
                   poketName = sc.next();
-                  
                   System.out.println();
-                  champVO.move(poketName);
+                  con.play(poketName);
                   System.out.println();
-                  pause(800);
+                  pause(4000);
 
                   int userPower = champDAO.poketPower(user_ID, poketName);
 
@@ -191,38 +193,25 @@ public class Main {
                   System.out.println("대결을 펼친 상대투수는요..!");
                   System.out.println();
                   pause(800);
-                  champVO.move(poket);
                   
-                  pause(800);
-                  
-                  System.out.println();
+                  con.play(poket);
+                  System.out.println();                  
+                  pause(4000);
                   
                   System.out.println("경기 시작합니다!");
 
 
                   if( userPower >= fiterPower) {
                      if((userPower - fiterPower) <= 50) {
-                        System.out.println("두구두구..."); 
-                        pause(1000);
-                        System.out.println("안타!");
-                        System.out.println();
-                        score += 1;
-                        pause(800);
+                    	 con.play(1);
+                    	 score += 1;
                      }else {
-                        System.out.println("두구두구..."); 
-                        pause(1000);
-                        System.out.println("홈런!");
-                        System.out.println();
+                        con.play(2);
                         score += 2;
-                        pause(800);
                      }
                   }else if(userPower < fiterPower) {
-                     System.out.println("두구두구..."); 
-                     pause(1000);
-                     System.out.println("아웃!");
-                     System.out.println();
-                     out += 1;
-                     pause(800);
+                     con.play(3);
+                     out += 1; 
                   }
                   if(out == 3) {
                      System.out.println("패배하였습니다");
