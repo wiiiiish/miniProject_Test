@@ -21,7 +21,6 @@ public class Champ_DAO {
          String user = "campus_d_4_0115";
          String password = "smhrd4";
 
-
          conn = DriverManager.getConnection(url, user, password);
       } catch (Exception e) {
          e.printStackTrace();
@@ -107,9 +106,37 @@ public class Champ_DAO {
       }
       return champ;
    }
+   
+   public ArrayList<Champ_VO> selectChamp (String user_ID) {
+         ArrayList<Champ_VO> champ = new ArrayList<>();
+
+         try {
+            connect();
+            String sql = "select * from USER_CHAMP where ID = ?";
+
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,user_ID);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+               String poketmon = rs.getString("CHAMP");
+               int poketPower = rs.getInt("POWER");
+               champ.add(new Champ_VO(poketmon, poketPower));
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         } finally {
+            try {
+               close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         return champ;
+      }
 
    public String Champ (int poketmonNum) {
-      String[] poketList = {"피카츄", "파이리", "이상해씨", "꼬부기", "푸린", "나옹", "잠만보", "고라파덕", "모다피", "케이시"};
+      String[] poketList = {"피카츄", "파이리", "이상해씨", "꼬부기", "푸린", "나옹", "마자용", "고라파덕", "토게피", "치코리타"};
       return poketList[poketmonNum];
    }
 
@@ -225,33 +252,33 @@ public class Champ_DAO {
    }
    public String getPoket (String user_ID) {
 
-	      ArrayList<String> List = new ArrayList<>();
-	      Random rd = new Random();
-	      try {
-	         connect();
-	         String sql = "select CHAMP from USER_CHAMP where ID = ? ";
+         ArrayList<String> List = new ArrayList<>();
+         Random rd = new Random();
+         try {
+            connect();
+            String sql = "select CHAMP from USER_CHAMP where ID = ? ";
 
-	         pst = conn.prepareStatement(sql);
-	         pst.setString(1, user_ID);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, user_ID);
 
-	         rs = pst.executeQuery();
-	         while (rs.next()) {
-	            String poketmon = rs.getString("CHAMP");
-	            List.add(poketmon);
-	         }
+            rs = pst.executeQuery();
+            while (rs.next()) {
+               String poketmon = rs.getString("CHAMP");
+               List.add(poketmon);
+            }
 
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         try {
-	            close();
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         }
-	      }
-	      return List.get(rd.nextInt(List.size()));
+         } catch(Exception e) {
+            e.printStackTrace();
+         } finally {
+            try {
+               close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         return List.get(rd.nextInt(List.size()));
 
-	   }
+      }
 
 
 } // end of class

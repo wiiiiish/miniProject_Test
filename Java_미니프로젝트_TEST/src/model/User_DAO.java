@@ -19,7 +19,7 @@ public class User_DAO {
          String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
          String user = "campus_d_4_0115";
          String password = "smhrd4";
-
+         
          conn = DriverManager.getConnection(url, user, password);
       } catch (Exception e) {
          e.printStackTrace();

@@ -52,9 +52,9 @@ public class Record_DAO {
          pst = conn.prepareStatement(sql);
          rs = pst.executeQuery();
          while(rs.next()) {
-            String user_ID = rs.getString("ID");
+            String user_NAME = rs.getString("NAME");
             int score = rs.getInt("RANK");
-            rank.add(new Record_VO(user_ID, score));
+            rank.add(new Record_VO(user_NAME, score));
          }
             
       } catch (Exception e) {
@@ -80,10 +80,10 @@ public class Record_DAO {
          pst = conn.prepareStatement(sql);
          rs = pst.executeQuery();
          while(rs.next()) {
-            String user_ID = rs.getString("ID");
+            String user_NAME = rs.getString("NAME");
             int winCnt = rs.getInt("WIN");
             int loseCnt = rs.getInt("LOSE");
-            winlose.add(new Record_VO(user_ID, winCnt, loseCnt));
+            winlose.add(new Record_VO(user_NAME, winCnt, loseCnt));
          }
          
       } catch (Exception e) {
@@ -132,7 +132,7 @@ public class Record_DAO {
          
          pst = conn.prepareStatement(sql);
          pst.setString(1, user_ID);
-         pst.executeUpdate();
+         int cnt = pst.executeUpdate();
       
       } catch (Exception e) {
          e.printStackTrace();

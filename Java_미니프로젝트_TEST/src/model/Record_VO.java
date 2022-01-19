@@ -35,16 +35,9 @@ public class Record_VO {
 	      return winCnt;
 	   }
 
-	   public void setWinCnt() {
-	      this.winCnt = winCnt+1;
-	   }
 
 	   public int getLoseCnt() {
 	      return loseCnt;
-	   }
-
-	   public void setLoseCnt() {
-	      this.loseCnt = loseCnt+1;
 	   }
 
 	}
