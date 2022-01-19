@@ -217,14 +217,14 @@ public class Main {
 							if( userPower >= fiterPower) {
 								if((userPower - fiterPower) <= 50) {
 									con.play(1);
-									score += 1;
+									score += 2;
 									System.out.println("현재 점수 : " + score);
 									System.out.println("아웃 : " + out);
 									System.out.println();
 									
 								}else {
 									con.play(2);
-									score += 2;
+									score += 3;
 									System.out.println("현재 점수 : " + score);
 									System.out.println("아웃 : " + out);
 									System.out.println();
@@ -247,7 +247,7 @@ public class Main {
 									game = false;
 								}
 							}
-							if(score >= 3) {
+							if(score >= 10) {
 								System.out.println("승리하였습니다");
 								recordDAO.updatetWin(user_ID);
 								score = 0;
@@ -258,6 +258,8 @@ public class Main {
 									System.out.print("포켓몬을 추가하시겠습니까? [1]네 [2]아니오 >> ");
 									addmenu = sc.nextInt();
 									if (addmenu == 1) {
+										System.out.println("추가할 포켓몬을 선택해주세요.");
+										System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]마자용 [8]고라파덕 [9]토게피 [10]치코리타");
 										con.team(user_ID);
 										System.out.println("포켓몬 구단이 완성되었습니다.");
 										win = 0;
