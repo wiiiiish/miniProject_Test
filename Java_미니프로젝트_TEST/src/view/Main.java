@@ -5,10 +5,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 import model.Champ_DAO;
-import model.Champ_VO;
+import model.Record_DAO;
+import model.Record_VO;
 import model.User_DAO;
 import model.User_VO;
-
+// 내일 할 일 : 출전 멘트 출력
+// 랭킹시스템 추가
 public class Main {
 
    public static void main(String[] args) {
@@ -16,7 +18,10 @@ public class Main {
       User_DAO userDAO = new User_DAO();
       Scanner sc = new Scanner(System.in);
       Champ_DAO champDAO = new Champ_DAO();
+      Record_VO recordVO = new Record_VO();
+      Record_DAO recordDAO = new Record_DAO();
 
+      
       Random rd = new Random();
       int menu = 0;
 
@@ -33,7 +38,7 @@ public class Main {
             boolean idpn = false;
             String user_ID = null;
             while (!idpn) {
-               System.out.println("al의 크기 : " + al.size());
+               System.out.println("현재 플레이어 수 : " + al.size());
                System.out.print("사용할 ID : ");
                user_ID = sc.next();
                if (al.size() != 0) {
@@ -77,8 +82,8 @@ public class Main {
             if (check) {
                System.out.println("회원가입이 완료되었습니다.");
             } // end of if
+            boolean inWinLose = recordDAO.insertWinLose(user_ID);
 
-           
             int poketNum = 0;
             System.out.println("사용할 포켓몬 3마리를 선택해주세요.");
             System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이시");
@@ -137,10 +142,17 @@ public class Main {
             } // end of while
 
             // 게임 화면 구축하기 //
-            System.out.println("[1]게임시작 [2]내 포켓몬 확인 [3]랭킹확인 [4]종료");
-            int gamemenu =sc.nextInt();
+            boolean start = true;
+            while (start) {
+            System.out.print("[1]게임시작 [2]내 포켓몬 확인 [3]랭킹확인 [4]로그아웃 >> ");
+            int gamemenu =sc.nextInt(); //게임 시작메뉴
+            int addmenu = 0;  // 승리시 포켓몬 추가할때 메뉴
+            int rankmenu = 0; // 랭크확인 메뉴
+            int wincnt = 0; 
+            int losecnt = 0; 
             int score = 0;
             int out = 0;
+            int win = 0;
             ArrayList<String> list = champDAO.fiterChamp(user_ID);
             if(gamemenu == 1) {
                System.out.println("게임을 시작합니다");
@@ -148,58 +160,125 @@ public class Main {
                ArrayList<String> userPoket = null;
                ArrayList<String> fiterPoket = null;
 
-               while(true) {
-               int fiterNum = rd.nextInt(al.size())+1;
-               
-               
-               // 내포켓몬 선택하기 
-               System.out.println("출전시킬 포켓몬을 골라주세요.");
-               System.out.println("==========보유 포켓몬 목록==========");
-               for (int i=0; i<list.size(); i++) {
-                  System.out.print(list.get(i) + " ");
-               }
-               System.out.print("포켓몬 선택 : ");
-               poketName = sc.next();
-               
-               int userPower = champDAO.poketPower(user_ID, poketName);
-               
-               String poket = champDAO.poket(fiterNum);
-               int fiterPower = champDAO.poketPower(fiterNum, poket);
-               
-               
-               if( userPower >= fiterPower) {
-                  if((userPower - fiterPower) <= 50) {
-                     System.out.println("안타!");
-                     score += 1;
-                  }else {
-                     System.out.println("홈런!");
-                     score += 2;
+               boolean game = true;
+               while(game) {
+                  int fiterNum = rd.nextInt(al.size())+1; // al 유저의 수
+                  // 내포켓몬 선택하기 
+                  System.out.println("출전시킬 포켓몬을 골라주세요.");
+                  System.out.println("==========보유 포켓몬 목록==========");
+                  for (int i=0; i<list.size(); i++) {
+                     System.out.print(list.get(i) + " ");
                   }
-               }else if(userPower < fiterPower) {
-                  System.out.println("아웃!");
-                  out += 1;
-               }
-               if(out == 3) {
-                  System.out.println("패배하였습니다");
-                  break;
-               }
-               if(score >= 10) {
-                  System.out.println("승리하였습니다");
-                  break;
-               }
-               }
-            }else if(gamemenu == 2) {
-               
-            }else if(gamemenu == 3) {
-               
-            }else if(gamemenu == 4) {
-               System.out.println("종료");
-               break;
-            }
-         } // end of else if (menu == 2)
-         //종료.
-      } // end of while
-      
-   }
+                  System.out.print("\n포켓몬 선택 : ");
+                  poketName = sc.next();
 
+                  int userPower = champDAO.poketPower(user_ID, poketName);
+
+                  String poket = champDAO.getPoket(fiterNum);
+                  int fiterPower = champDAO.poketPower(fiterNum, poket);
+
+
+                  if( userPower >= fiterPower) {
+                     if((userPower - fiterPower) <= 50) {
+                        System.out.println("두구두구..."); 
+                        pause(800);
+                        System.out.println("안타!");
+                        score += 1;
+                     }else {
+                        System.out.println("두구두구..."); 
+                        pause(800);
+                        System.out.println("홈런!");
+                        score += 2;
+                     }
+                  }else if(userPower < fiterPower) {
+                     System.out.println("두구두구..."); 
+                     pause(800);
+                     System.out.println("아웃!");
+                     out += 1;
+                  }
+                  if(out == 3) {
+                     System.out.println("패배하였습니다");
+                     recordDAO.updateLose(user_ID);
+                     score = 0;
+                     out = 0;
+                     System.out.println("계속 하시겠습니까? (Y/N) >> ");
+                     String yn = sc.next();
+                     if (yn.equals("N") || yn.equals("n")) {
+                        game = false;
+                     }
+                  }
+                  if(score >= 10) {
+                     System.out.println("승리하였습니다");
+                     recordDAO.updatetWin(user_ID);
+                     score = 0;
+                     out = 0;
+                     win ++;
+                     if (win >= 2) {
+                        System.out.println("승리횟수가 2회 이상 누적되어 포켓몬을 추가할 수 있습니다.");
+                        System.out.print("포켓몬을 추가하시겠습니까? [1]네 [2]아니오 >> ");
+                        addmenu = sc.nextInt();
+                        if (addmenu == 1) {
+                           int poketNum = 0;
+                           System.out.println("사용할 포켓몬을 선택해주세요.");
+                           System.out.println("[1]피카츄 [2]파이리 [3]이상해씨 [4]꼬부기 [5]푸린 [6]나옹 [7]잠만보 [8]고라파덕 [9]모다피 [10]케이시");
+                           System.out.print("데려갈 포켓몬 : ");
+                           poketNum = sc.nextInt();
+                           int Num = userDAO.getNum(user_ID);
+                           boolean checkchamp = champDAO.insertChamp(Num, user_ID, poketNum-1);
+                           if(checkchamp) {
+                              System.out.println(champDAO.Champ(poketNum-1) + "포켓몬 포켓볼에 저장 완료");
+                           }System.out.println("포켓몬 구단이 완성되었습니다.");
+                           win = 0;
+                           list = champDAO.fiterChamp(user_ID);
+                        } else if (addmenu == 2) {
+                           win = 0;
+                        }
+                     }
+                     System.out.println("계속 하시겠습니까? (Y/N) >> ");
+                     String yn = sc.next();
+                     if (yn.equals("N") || yn.equals("n")) {
+                        game = false;
+                     }
+                  } // end of if (score <= 10)
+               } // end of while (game)
+               
+            }else if(gamemenu == 2) {
+
+            }else if(gamemenu == 3) {
+               System.out.print("[1]점수랭킹확인 [2]전적랭킹확인 [3]뒤로가기 >> ");
+               rankmenu = sc.nextInt();
+               ArrayList<Record_VO> rank = null;
+               ArrayList<Record_VO> winlose = null;
+               
+               if (rankmenu == 1) {
+                  rank = recordDAO.rankCheck();
+                  for (int i=0; i<rank.size(); i++) {
+                     System.out.println((i+1)+"등"+"\t"+rank.get(i).getUser_ID()+"\t"+rank.get(i).getScore());
+                  }
+               } else if (rankmenu == 2){
+                  winlose = recordDAO.winloseCheck();
+                  System.out.println("등수" + "\t" + "아이디" + "\t" + "WIN" + "\t" + "LOSE");
+                  for (int i=0; i<winlose.size(); i++) {
+                     System.out.println((i+1)+"등"+"\t"+winlose.get(i).getUser_ID()+"\t"+winlose.get(i).getWinCnt()+"\t"+winlose.get(i).getLoseCnt());
+                  }
+               }
+            }else if(gamemenu == 4) {
+               System.out.println("로그아웃 되었습니다.");
+               start = false;
+            }
+            } // end of while (start)
+         } // end of else if (menu == 2)
+         else {
+            System.out.println("다음에 또 만나요~");
+            break;
+         }
+      } // end of while
+
+   }
+   public static void pause(int time) {
+         try {
+            Thread.sleep(time);
+         } catch (InterruptedException e) {
+         }
+      }
 }

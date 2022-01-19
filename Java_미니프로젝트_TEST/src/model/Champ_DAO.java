@@ -17,9 +17,10 @@ public class Champ_DAO {
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
 
-         String url = "jdbc:oracle:thin:@localhost:1521:xe";
-         String user = "system";
-         String password = "1234";
+         String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
+         String user = "campus_d_4_0115";
+         String password = "smhrd4";
+
 
          conn = DriverManager.getConnection(url, user, password);
       } catch (Exception e) {
@@ -193,7 +194,7 @@ public class Champ_DAO {
       return power;
    }
 
-   public String poket (int user_Num) {
+   public String getPoket (int user_Num) {
 
       ArrayList<String> List = new ArrayList<>();
       Random rd = new Random();
@@ -222,5 +223,35 @@ public class Champ_DAO {
       return List.get(rd.nextInt(List.size()));
 
    }
+   public String getPoket (String user_ID) {
+
+	      ArrayList<String> List = new ArrayList<>();
+	      Random rd = new Random();
+	      try {
+	         connect();
+	         String sql = "select CHAMP from USER_CHAMP where ID = ? ";
+
+	         pst = conn.prepareStatement(sql);
+	         pst.setString(1, user_ID);
+
+	         rs = pst.executeQuery();
+	         while (rs.next()) {
+	            String poketmon = rs.getString("CHAMP");
+	            List.add(poketmon);
+	         }
+
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            close();
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	      return List.get(rd.nextInt(List.size()));
+
+	   }
+
 
 } // end of class

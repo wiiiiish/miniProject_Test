@@ -7,6 +7,9 @@ public class Champ_VO {
 	   private String poketmon;
 	   private int poketPower;
 
+	   public Champ_VO() {
+		   
+	   }
 	   public Champ_VO (int Num, String user_ID, String poketmon, int poketPower) {
 	      this.Num = Num;
 	      this.user_ID=user_ID;
@@ -44,7 +47,7 @@ public class Champ_VO {
 	         System.out.println("푸린 푸린 푸리린");
 	      } else if (poketmon.equals("나옹")) {
 	         System.out.println("나옹이 출전합니다.");
-	         System.out.println("내가 누군지 물으신다면 대답해드리는 게 인지상정! 나는 나옹");
+	         System.out.println("내가 누군지 물으신다면 대답해드리는 게 인지상지다옹!");
 	      } else if (poketmon.equals("잠만보")) {
 	         System.out.println("잠만보가 출전합니다.");
 	         System.out.println("잠이 와");

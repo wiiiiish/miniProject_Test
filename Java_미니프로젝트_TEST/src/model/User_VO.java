@@ -24,8 +24,5 @@ public class User_VO {
 	      return user_NAME;
 	   }
 
-	   public void setNAME(String user_NAME) {
-	      this.user_NAME = user_NAME;
-	   }
 
 	} // end of class

@@ -1,13 +1,13 @@
 package model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class User_DAO {
-
+public class Record_DAO {
+   
    Connection conn = null;
    PreparedStatement pst = null;
    ResultSet rs = null ;
@@ -19,6 +19,7 @@ public class User_DAO {
          String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
          String user = "campus_d_4_0115";
          String password = "smhrd4";
+
 
          conn = DriverManager.getConnection(url, user, password);
       } catch (Exception e) {
@@ -41,25 +42,78 @@ public class User_DAO {
          e.printStackTrace();
       }
    } // end of close
-
-   public boolean insertUser(String user_ID, String user_PW, String user_NAME) {
-      boolean check = false;
+   
+   public ArrayList<Record_VO> rankCheck () {
+      ArrayList<Record_VO> rank = new ArrayList<>();
+      try {
+         connect();
+         String sql = "select * from RANKING";
+         
+         pst = conn.prepareStatement(sql);
+         rs = pst.executeQuery();
+         while(rs.next()) {
+            String user_ID = rs.getString("ID");
+            int score = rs.getInt("RANK");
+            rank.add(new Record_VO(user_ID, score));
+         }
+            
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            close();
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return rank;
+   } // end of rankCheck
+   
+   public ArrayList<Record_VO> winloseCheck () {
+      
+      ArrayList<Record_VO> winlose = new ArrayList<>();
 
       try {
          connect();
-         String sql = "insert into USER_INFO values (NUM_seq.nextval, ?, ?, ?)";
+         String sql = "select * from WIN_LOSE";
+         
          pst = conn.prepareStatement(sql);
+         rs = pst.executeQuery();
+         while(rs.next()) {
+            String user_ID = rs.getString("ID");
+            int winCnt = rs.getInt("WIN");
+            int loseCnt = rs.getInt("LOSE");
+            winlose.add(new Record_VO(user_ID, winCnt, loseCnt));
+         }
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            close();
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return winlose;
+   } // end of winloseCheck
 
+   public boolean insertWinLose (String user_ID) {
+      boolean check = false;
+      try {
+         connect();
+         String sql = "insert into USER_RECORD values (?, ?, ?)";
+         
+         pst = conn.prepareStatement(sql);
          pst.setString(1, user_ID);
-         pst.setString(2, user_PW);
-         pst.setString(3, user_NAME);
-
+         pst.setInt(2, 0);
+         pst.setInt(3, 0);
+         
          int cnt = pst.executeUpdate();
-
-         if(cnt>0) {
+         if (cnt > 0) {
             check = true;
          }
-
+         
       } catch (Exception e) {
          e.printStackTrace();
       } finally {
@@ -70,75 +124,16 @@ public class User_DAO {
          }
       }
       return check;
-   } // end of insert
-
-   public ArrayList<User_VO> selectUser() {
-      ArrayList<User_VO> al = new ArrayList<>();
-      try {
-         connect();
-         String sql = "select * from USER_INFO";
-
-         pst = conn.prepareStatement(sql);
-         rs = pst.executeQuery();
-
-         while (rs.next()) {
-            String user_ID = rs.getString("ID");
-            String user_PW = rs.getString("PW");
-            String user_NAME = rs.getString("NAME");
-
-            al.add(new User_VO(user_ID, user_PW, user_NAME));
-         }
-      } catch (Exception e) {
-         e.printStackTrace();
-      } finally {
-         close();
-      }
-      return al;
-
-   } // end of select
-
-   public String fiter(int fiterNum) {
-      Champ_DAO champDAO = new Champ_DAO();
-      Random rd = new Random();
-      ArrayList<String> fiterList = new ArrayList<>();
-      String fiter = null;
-      try {
-         connect();
-         String sql = "select ID from USER_INFO where NUM = ?";
-         pst = conn.prepareStatement(sql);
-
-         pst.setInt(1, fiterNum);
-         rs = pst.executeQuery();
-
-         String user_ID = rs.getString("ID");
-
-         fiterList = champDAO.fiterChamp(user_ID);
-         fiter = fiterList.get(rd.nextInt(fiterList.size()));
-      } catch (Exception e) {
-         e.printStackTrace();
-      } finally {
-         try {
-            close();
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-      }
-      return fiter;
-
    }
-
-   public int getNum (String user_ID) {
-      int Num = 0;
+   public void updatetWin (String user_ID) {
       try {
          connect();
-         String sql = "select NUM from USER_INFO where ID = ?";
+         String sql = "update USER_RECORD set WIN = WIN+1 where ID = ?";
+         
          pst = conn.prepareStatement(sql);
-
          pst.setString(1, user_ID);
-         rs = pst.executeQuery();
-         if (rs.next()) {
-            Num = rs.getInt("NUM");
-         }
+         pst.executeUpdate();
+      
       } catch (Exception e) {
          e.printStackTrace();
       } finally {
@@ -148,8 +143,25 @@ public class User_DAO {
             e.printStackTrace();
          }
       }
-      return Num;
-
+   } // end of updatewin
+   
+   public void updateLose (String user_ID) {
+      try {
+         connect();
+         String sql = "update USER_RECORD set LOSE = LOSE+1 where ID = ?";
+         
+         pst = conn.prepareStatement(sql);
+         pst.setString(1, user_ID);
+         pst.executeUpdate();
+      
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            close();
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
    }
-
 }
