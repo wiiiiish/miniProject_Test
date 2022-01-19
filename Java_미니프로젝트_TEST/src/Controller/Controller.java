@@ -1,10 +1,17 @@
 package Controller;
 
+import java.util.Scanner;
+
 import javazoom.jl.player.MP3Player;
+import model.Champ_DAO;
+import model.User_DAO;
 
 public class Controller {
 
 	static MP3Player mp3 = new MP3Player();
+	 Scanner sc = new Scanner(System.in);
+	 Champ_DAO champDAO = new Champ_DAO();
+	 User_DAO userDAO = new User_DAO();
 
 	public static void main(String[] args) {
 	}
@@ -57,30 +64,129 @@ public class Controller {
 			System.out.println("두구두구..."); 
             pause(1000);
             mp3.play("C://안타.mp3");
-            System.out.println("안타!");
+            System.out.println("\r\n"
+            		+ "                                                               \r\n"
+            		+ "8 8888        8            8 8888           8888888 8888888888 \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888888888888            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "8 8888        8            8 8888                 8 8888       \r\n"
+            		+ "");
             System.out.println();
-            pause(800);
+            pause(3000);
 		} else if (result == 2) {
 			System.out.println("두구두구..."); 
             pause(1000);
             mp3.play("C://홈런.mp3");
-            System.out.println("홈런!");
+            System.out.println("\r\n"
+            		+ "                                             .         .                                                                          \r\n"
+            		+ "8 8888        8     ,o888888o.              ,8.       ,8.          8 8888888888   8 888888888o.   8 8888      88 b.             8 \r\n"
+            		+ "8 8888        8  . 8888     `88.           ,888.     ,888.         8 8888         8 8888    `88.  8 8888      88 888o.          8 \r\n"
+            		+ "8 8888        8 ,8 8888       `8b         .`8888.   .`8888.        8 8888         8 8888     `88  8 8888      88 Y88888o.       8 \r\n"
+            		+ "8 8888        8 88 8888        `8b       ,8.`8888. ,8.`8888.       8 8888         8 8888     ,88  8 8888      88 .`Y888888o.    8 \r\n"
+            		+ "8 8888        8 88 8888         88      ,8'8.`8888,8^8.`8888.      8 888888888888 8 8888.   ,88'  8 8888      88 8o. `Y888888o. 8 \r\n"
+            		+ "8 8888        8 88 8888         88     ,8' `8.`8888' `8.`8888.     8 8888         8 888888888P'   8 8888      88 8`Y8o. `Y88888o8 \r\n"
+            		+ "8 8888888888888 88 8888        ,8P    ,8'   `8.`88'   `8.`8888.    8 8888         8 8888`8b       8 8888      88 8   `Y8o. `Y8888 \r\n"
+            		+ "8 8888        8 `8 8888       ,8P    ,8'     `8.`'     `8.`8888.   8 8888         8 8888 `8b.     ` 8888     ,8P 8      `Y8o. `Y8 \r\n"
+            		+ "8 8888        8  ` 8888     ,88'    ,8'       `8        `8.`8888.  8 8888         8 8888   `8b.     8888   ,d8P  8         `Y8o.` \r\n"
+            		+ "8 8888        8     `8888888P'     ,8'         `         `8.`8888. 8 888888888888 8 8888     `88.    `Y88888P'   8            `Yo \r\n"
+            		+ "");
             System.out.println();
-            pause(800);
+            pause(3000);
 		} else if (result == 3) {
 			System.out.println("두구두구..."); 
             pause(1000);
             mp3.play("C://아웃.mp3");
-            System.out.println("아웃!");
+            System.out.println("\r\n"
+            		+ "                                                                         \r\n"
+            		+ "    ,o888888o.               8 8888      88           8888888 8888888888 \r\n"
+            		+ " . 8888     `88.             8 8888      88                 8 8888       \r\n"
+            		+ ",8 8888       `8b            8 8888      88                 8 8888       \r\n"
+            		+ "88 8888        `8b           8 8888      88                 8 8888       \r\n"
+            		+ "88 8888         88           8 8888      88                 8 8888       \r\n"
+            		+ "88 8888         88           8 8888      88                 8 8888       \r\n"
+            		+ "88 8888        ,8P           8 8888      88                 8 8888       \r\n"
+            		+ "`8 8888       ,8P            ` 8888     ,8P                 8 8888       \r\n"
+            		+ " ` 8888     ,88'               8888   ,d8P                  8 8888       \r\n"
+            		+ "    `8888888P'                  `Y88888P'                   8 8888       \r\n"
+            		+ "");
             System.out.println();
-            pause(800);
+            pause(3000);
 		}
 	}
-	 public static void pause(int time) {
+	
+	public static void pause(int time) {
          try {
             Thread.sleep(time);
          } catch (InterruptedException e) {
          }
       }
+	
+	public static void open() {
+		mp3.play("C://오프닝.mp3");
+	}
+	
+	public static void choose() {
+		mp3.play("C://포켓몬선택.mp3");
+	}
+	
+	public static void end() {
+		mp3.play("C://종료.mp3");
+	}
+	
+	public static void stop() {
+		if (mp3.isPlaying() == true) {
+		mp3.stop();
+		}
+	}
+	
+	public void team(String user_ID) {
+		boolean vs = true;
+		boolean yesvs = false;
+		int poketNum = 0;
+		while (vs){
+			System.out.print("데려갈 포켓몬 : ");
+			poketNum = sc.nextInt();
 
+			String vspoketName = null;
+			String mypoket = champDAO.Champ(poketNum-1);
+			
+			for (int i=0; i<champDAO.fiterChamp(user_ID).size(); i++) {
+				vspoketName = champDAO.fiterChamp(user_ID).get(i);
+				if (mypoket.equals(vspoketName)) {
+					System.out.println("이미 소유한 포켓몬입니다. 다시 선택해주세요.");
+					yesvs = false;
+					break;
+				} else {
+					yesvs = true;
+				}
+			} // end of for
+			
+			if (yesvs) {
+				champDAO.fiterChamp(user_ID);
+				int Num = userDAO.getNum(user_ID);
+				boolean checkchamp = champDAO.insertChamp(Num, user_ID, mypoket);
+				if(checkchamp) {
+					System.out.println(champDAO.Champ(poketNum-1) + "포켓몬 포켓볼에 저장 완료");
+				}
+				vs = false;
+			}
+		} // end of while
+	}
+
+	public void first(String user_ID) {
+		int poketNum = 0;
+		System.out.print("데려갈 포켓몬 : ");
+		poketNum = sc.nextInt();
+		int Num = userDAO.getNum(user_ID);
+		boolean checkchamp = champDAO.insertChamp(Num, user_ID, champDAO.Champ(poketNum-1));
+		if(checkchamp) {
+			System.out.println(champDAO.Champ(poketNum-1) + "포켓몬 포켓볼에 저장 완료");
+		}
+	}
 }

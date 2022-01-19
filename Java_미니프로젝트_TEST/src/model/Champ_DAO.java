@@ -43,7 +43,7 @@ public class Champ_DAO {
       }
    } // end of close
 
-   public boolean insertChamp (int Num, String user_ID, int poketmonNum) {
+   public boolean insertChamp (int Num, String user_ID, String poketmon) {
       boolean check = false;
       Random rd = new Random();
 
@@ -54,7 +54,7 @@ public class Champ_DAO {
          pst = conn.prepareStatement(sql);
          pst.setInt(1, Num);
          pst.setString(2,user_ID);
-         pst.setString(3, Champ(poketmonNum));
+         pst.setString(3, poketmon);
          pst.setInt(4, rd.nextInt(100)+1);
 
          int cnt = pst.executeUpdate();
