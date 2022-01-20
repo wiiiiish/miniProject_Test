@@ -6,6 +6,7 @@ public class Record_VO {
 	   private int winCnt;
 	   private int loseCnt;
 	   private int score;
+	   private int count;
 	   
 	   public Record_VO (String user_ID, int score) {
 	      this.user_ID = user_ID;
@@ -38,5 +39,11 @@ public class Record_VO {
 	   public int getLoseCnt() {
 	      return loseCnt;
 	   }
+
+	public int getCount() {
+		return count;
+	}
+	   
+	   
 
 	}

@@ -98,16 +98,17 @@ public class Record_DAO {
       return winlose;
    } // end of winloseCheck
 
-   public boolean insertWinLose (String user_ID) {
+   public boolean insertWinLoseCount (String user_ID) {
       boolean check = false;
       try {
          connect();
-         String sql = "insert into USER_RECORD values (?, ?, ?)";
+         String sql = "insert into USER_RECORD values (?, ?, ?, ?)";
          
          pst = conn.prepareStatement(sql);
          pst.setString(1, user_ID);
          pst.setInt(2, 0);
          pst.setInt(3, 0);
+         pst.setInt(4, 0);
          
          int cnt = pst.executeUpdate();
          if (cnt > 0) {
@@ -163,5 +164,70 @@ public class Record_DAO {
             e.printStackTrace();
          }
       }
+   }
+
+   public void updateCount (String user_ID) {
+	   try {
+	         connect();
+	         String sql = "update USER_RECORD set WINCOUNT=WINCOUNT+1 where ID = ?";
+	         
+	         pst = conn.prepareStatement(sql);
+	         pst.setString(1, user_ID);
+	         pst.executeUpdate();
+	      
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            close();
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+   }
+
+   public void zerosetCount (String user_ID) {
+	   try {
+	         connect();
+	         String sql = "update USER_RECORD set WINCOUNT = 0 where ID = ?";
+	         
+	         pst = conn.prepareStatement(sql);
+	         pst.setString(1, user_ID);
+	         pst.executeUpdate();
+	      
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            close();
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+   }
+
+   public int getCount (String user_ID) {
+	   int Count = 0;
+	      try {
+	         connect();
+	         String sql = "select WINCOUNT from USER_RECORD where ID = ?";
+
+	         pst = conn.prepareStatement(sql);
+	         pst.setString(1, user_ID);
+
+	         rs = pst.executeQuery();
+	         if(rs.next()) {
+	         Count = rs.getInt("WINCOUNT");
+	         }
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            close();
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	      return Count;
    }
 }

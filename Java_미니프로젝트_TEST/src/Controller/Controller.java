@@ -129,6 +129,7 @@ public class Controller {
 	
 	public void open() {
 		mp3.play("C:\\Users\\smhrd\\Desktop\\music\\오프닝.mp3");
+		
 	}
 	
 	public void choose() {
@@ -189,4 +190,64 @@ public class Controller {
 			System.out.println(champDAO.Champ(poketNum-1) + "포켓몬 포켓볼에 저장 완료");
 		}
 	}
+	public void win() {
+		System.out.println("\r\n"
+				+ "                                                                          \r\n"
+				+ "`8.`888b                 ,8'            8 8888           b.             8 \r\n"
+				+ " `8.`888b               ,8'             8 8888           888o.          8 \r\n"
+				+ "  `8.`888b             ,8'              8 8888           Y88888o.       8 \r\n"
+				+ "   `8.`888b     .b    ,8'               8 8888           .`Y888888o.    8 \r\n"
+				+ "    `8.`888b    88b  ,8'                8 8888           8o. `Y888888o. 8 \r\n"
+				+ "     `8.`888b .`888b,8'                 8 8888           8`Y8o. `Y88888o8 \r\n"
+				+ "      `8.`888b8.`8888'                  8 8888           8   `Y8o. `Y8888 \r\n"
+				+ "       `8.`888`8.`88'                   8 8888           8      `Y8o. `Y8 \r\n"
+				+ "        `8.`8' `8,`'                    8 8888           8         `Y8o.` \r\n"
+				+ "         `8.`   `8'                     8 8888           8            `Yo \r\n"
+				+ "");
+	}
+	
+	public void lose() {
+		System.out.println("\r\n"
+				+ "                                                                                              \r\n"
+				+ "8 8888                       ,o888888o.                  d888888o.             8 8888888888   \r\n"
+				+ "8 8888                    . 8888     `88.              .`8888:' `88.           8 8888         \r\n"
+				+ "8 8888                   ,8 8888       `8b             8.`8888.   Y8           8 8888         \r\n"
+				+ "8 8888                   88 8888        `8b            `8.`8888.               8 8888         \r\n"
+				+ "8 8888                   88 8888         88             `8.`8888.              8 888888888888 \r\n"
+				+ "8 8888                   88 8888         88              `8.`8888.             8 8888         \r\n"
+				+ "8 8888                   88 8888        ,8P               `8.`8888.            8 8888         \r\n"
+				+ "8 8888                   `8 8888       ,8P            8b   `8.`8888.           8 8888         \r\n"
+				+ "8 8888                    ` 8888     ,88'             `8b.  ;8.`8888           8 8888         \r\n"
+				+ "8 888888888888               `8888888P'                `Y8888P ,88P'           8 888888888888 \r\n"
+				+ "");
+	}
+	public void bye() {
+
+		System.out.println("\r\n"
+				+ "                                                                                                            \r\n"
+				+ "8 888888888o   `8.`8888.      ,8' 8 8888888888             8 888888888o   `8.`8888.      ,8' 8 8888888888   \r\n"
+				+ "8 8888    `88.  `8.`8888.    ,8'  8 8888                   8 8888    `88.  `8.`8888.    ,8'  8 8888         \r\n"
+				+ "8 8888     `88   `8.`8888.  ,8'   8 8888                   8 8888     `88   `8.`8888.  ,8'   8 8888         \r\n"
+				+ "8 8888     ,88    `8.`8888.,8'    8 8888                   8 8888     ,88    `8.`8888.,8'    8 8888         \r\n"
+				+ "8 8888.   ,88'     `8.`88888'     8 888888888888           8 8888.   ,88'     `8.`88888'     8 888888888888 \r\n"
+				+ "8 8888888888        `8. 8888      8 8888                   8 8888888888        `8. 8888      8 8888         \r\n"
+				+ "8 8888    `88.       `8 8888      8 8888                   8 8888    `88.       `8 8888      8 8888         \r\n"
+				+ "8 8888      88        8 8888      8 8888                   8 8888      88        8 8888      8 8888         \r\n"
+				+ "8 8888    ,88'        8 8888      8 8888                   8 8888    ,88'        8 8888      8 8888         \r\n"
+				+ "8 888888888P          8 8888      8 888888888888           8 888888888P          8 8888      8 888888888888 \r\n"
+				+ "");
+	}
+	public void logo() {
+		System.out.println("    ....::.                   :.:                                                                                           ..:.                      \r\n"
+				+ "    BBBBBBBBQr                BBBZ                        BBBv                                                              BBQB                      \r\n"
+				+ "    BBBR  :BBBS               BBB1                        BBBL                                                              BBBZ                      \r\n"
+				+ "    QBBb    BBB    7QBBBgr    BBBL  gBBQ     sBBQBE:   :QBBBBBBBr sBBBXBBB7.QBBBS     LBBBBg:    BBBuPBBBR.                 BBBd   :QBBB7 :BBBBr      \r\n"
+				+ "    QBBK   7BBB   BBBD1BBBB   BBB: BBBE    .BBBvrPBBZ   PJBBBDjq. uBBBBjBBBBEuBQBK  .QBBbuBBBQ   BBBBBUQBBB                 BBBP   BBBBBBXBBBBBB.     \r\n"
+				+ "    QBBBqgBBBB.  BQB1   DBBZ  BBBQBBB.     BQB:   QBBv    BBBi    vBBB  QBBP  QBBg  BBBr   BQBs  BBB7  .QBB                 BBBE   BBBQBBBBBBBBB      \r\n"
+				+ "    BBBBBBBbr    BBBi   sBBB  BBBBBBZ     .QBQBQBQBQBB    BBBr    LBBB  BBBX  BBBb  BBB    PBBB  BBB:  .BBB                 BBBZ    KBBBBQBBBBd       \r\n"
+				+ "    QBQd         BBBu   EBBE  QBQB2BBB     BBBi    .::    BBBL    vBQB  BBQP  BBBd  BBBr   BQBs  BBBi  :BBQ           7DK7  BBBb       iBBB7          \r\n"
+				+ "    BBBQ          BBBd7QBBB   BBBv 7BBB.   :BBBi:uBBB     QQBBBQ. JBBB  BBBD  BBBg  :BBBK7BBBB   QBB7  :BBB           iBBBJYBBB          r            \r\n"
+				+ "    BBQB           1BBBBBY    BBBU  7BBBi    XBBQBBv       rqBBBi JBBB  BBQD  BBBR    5BBBBBr    BQB7  iBBB            .ZBBBBq             ");
+	}
+	
 }
